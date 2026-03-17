@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>One-Hour Timer</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f2f5;
+            margin: 0;
+        }
+
+        .timer-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        #display {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+        }
+
+        .controls button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .start {
+            background: #28a745;
+            color: white;
+        }
+
+        .pause {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .reset {
+            background: #dc3545;
+            color: white;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 15px;
+            color: #dc3545;
+            font-weight: bold;
+            min-height: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="timer-card">
+        <div id="display">60:00</div>
+        <div class="controls">
+            <button class="start" onclick="startTimer()">Start</button>
+            <button class="pause" onclick="pauseTimer()">Pause</button>
+            <button class="reset" onclick="resetTimer()">Reset</button>
+        </div>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        let timeLeft = 3600; 
+        let timerId = null;
+
+        const display = document.getElementById('display');
+        const message = document.getElementById('message');
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+
+            display.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (timerId) return; 
+            message.textContent = "";
+
+            timerId = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    clearInterval(timerId);
+                    timerId = null;
+                    message.textContent = "⏰ Time's up!";
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerId);
+            timerId = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timeLeft = 3600;
+            message.textContent = "";
+            updateDisplay();
+        }
+    </script>
+
+</body>
+
+</html>
