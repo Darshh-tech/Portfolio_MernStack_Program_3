@@ -35,9 +35,9 @@ console.log(getUnique(a, b));
 //TASK 3: Student score analysis.
 
 let students = [
-  { name: 'Alice', age: 22, scores: [78, 85, 92] },
-  { name: 'Bob', age: 20, scores: [88, 90, 76] },
-  { name: 'Charlie', age: 21, scores: [95, 80, 85] }
+  { name: 'Darsh', age: 19, scores: [78, 85, 92] },
+  { name: 'Manvir', age: 20, scores: [88, 90, 76] },
+  { name: 'Sukhvinder', age: 21, scores: [95, 80, 85] }
 ];
 
 let topStudentName = '';
